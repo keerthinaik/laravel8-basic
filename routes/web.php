@@ -20,3 +20,13 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/about', [AboutController::class, 'index'])->middleware('check_age');
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified'
+])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+});
