@@ -40,7 +40,13 @@
                                         <th scope="row">{{ $i++ }}</th>
                                         <td>{{ $category->name }}</td>
                                         <td>{{ $category->user_id }}</td>
-                                        <td>{{ $category->created_at->diffForHumans() }}</td>
+                                        <td>
+                                            @if($category->created_at == NULL)
+                                                <span class="text-danger">No Data Found</span>
+                                            @else
+                                                {{ $category->created_at->diffForHumans() }}
+                                            @endif
+                                        </td>
                                     </tr>
                                 @endforeach
                                 </tbody>
