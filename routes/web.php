@@ -3,7 +3,9 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\CategoryController;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,13 +24,18 @@ Route::get('/', function () {
 
 Route::get('/about', [AboutController::class, 'index'])->middleware('check_age');
 
+// Category Controller
+Route::get('category/all', [CategoryController::class, 'allCategory'])->name('all.category');
+Route::post('category/all', [CategoryController::class, 'addCategory'])->name('add.category');
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
     Route::get('/dashboard', function () {
-        $users = User::all();
+        // $users = User::all();
+        $users = DB::table('users')->get();
         return view('dashboard', compact('users'));
     })->name('dashboard');
 });
