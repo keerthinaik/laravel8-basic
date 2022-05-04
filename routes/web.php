@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\AboutController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,6 +19,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/about', function () {
-    return view('about');
-});
+Route::get('/about', [AboutController::class, 'index'])->middleware('check_age');
