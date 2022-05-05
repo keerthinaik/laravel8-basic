@@ -29,6 +29,9 @@ Route::get('category/all', [CategoryController::class, 'allCategory'])->name('al
 Route::post('category/add', [CategoryController::class, 'addCategory'])->name('add.category');
 Route::get('category/edit/{id}', [CategoryController::class, 'editCategory']);
 Route::post('category/update/{id}', [CategoryController::class, 'updateCategory']);
+Route::get('category/softdelete/{id}', [CategoryController::class, 'softDeleteCategory']);
+Route::get('category/restore/{id}', [CategoryController::class, 'restoreCategory']);
+Route::get('category/permanent_delete/{id}', [CategoryController::class, 'deleteCategory']);
 
 Route::middleware([
     'auth:sanctum',

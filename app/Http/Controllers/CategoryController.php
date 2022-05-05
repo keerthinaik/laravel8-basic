@@ -15,13 +15,14 @@ class CategoryController extends Controller
     function allCategory()
     {
         $categories = Category::latest()->paginate(4);
+        $trashCategories = Category::onlyTrashed()->latest()->paginate(2);
 
         // code of query builder join table to join with user table to retrieve user's name
 //        $categories = DB::table('categories')
 //            ->join('users', 'categories.user_id', 'users.id')
 //            ->select('categories.*', 'users.name as user_name')->latest()->paginate(4);
 
-        return view('admin.category.index', compact('categories'));
+        return view('admin.category.index', compact('categories', 'trashCategories'));
     }
 
     function editCategory($id) {
@@ -78,5 +79,20 @@ class CategoryController extends Controller
         DB::table('categories')->insert($data);
 
         return Redirect::back()->with('success', 'Category Inserted Successfully');
+    }
+
+    function softDeleteCategory($id) {
+        $delete = Category::find($id)->delete();
+        return Redirect::back()->with('success', 'Category Soft Deleted Successfully');
+    }
+
+    function restoreCategory($id) {
+        $restore = Category::withTrashed()->find($id)->restore();
+        return Redirect::back()->with('success', 'Category Restored Successfully');
+    }
+
+    function deleteCategory($id) {
+        $delete = Category::onlyTrashed()->find($id)->forceDelete();
+        return Redirect::back()->with('success', 'Category Permanently Deleted Successfully');
     }
 }

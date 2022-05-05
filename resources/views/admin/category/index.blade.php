@@ -49,13 +49,56 @@
                                         </td>
                                         <td>
                                             <a href="{{ url('category/edit/'.$category->id) }}" class="btn btn-info">Edit</a>
-                                            <a href="" class="btn btn-danger">Delete</a>
+                                            <a href="{{ url('category/softdelete/'.$category->id) }}"
+                                               class="btn btn-danger">Delete</a>
                                         </td>
                                     </tr>
                                 @endforeach
                                 </tbody>
                             </table>
                             {{ $categories->links() }}
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="card">
+                        <div class="card-header">
+                            Trash Category
+                        </div>
+                        <div class="card-body">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Sl No.</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Created by</th>
+                                    <th scope="col">Deleted At</th>
+                                    <th scope="col"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($trashCategories as $category)
+                                    <tr>
+                                        <th scope="row">{{ $categories->firstItem() + $loop->index }}</th>
+                                        <td>{{ $category->name }}</td>
+                                        <td>{{ $category->user->name }}</td>
+                                        <td>
+                                            @if($category->deleted_at == NULL)
+                                                <span class="text-danger">No Data Found</span>
+                                            @else
+                                                {{ $category->deleted_at->diffForHumans() }}
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <a href="{{ url('category/restore/'.$category->id) }}"
+                                               class="btn btn-warning">Restore</a>
+                                            <a href="{{ url('category/permanent_delete/'.$category->id) }}"
+                                               class="btn btn-danger">Permanent Delete</a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                            {{ $trashCategories->links() }}
                         </div>
                     </div>
                 </div>
