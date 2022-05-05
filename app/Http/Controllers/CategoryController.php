@@ -12,16 +12,23 @@ use Illuminate\Support\Facades\Redirect;
 
 class CategoryController extends Controller
 {
-    function allCategory() {
-        $categories = Category::latest()->paginate(4);
+    function allCategory()
+    {
+//        $categories = Category::latest()->paginate(4);
+
+        $categories = DB::table('categories')
+            ->join('users', 'categories.user_id', 'users.id')
+            ->select('categories.*', 'users.name as user_name')->latest()->paginate(4);
+
         return view('admin.category.index', compact('categories'));
     }
 
-    function addCategory(Request $request) {
+    function addCategory(Request $request)
+    {
         $validateData = $request->validate([
             'name' => 'required|unique:categories|max:20',
 
-        ],[
+        ], [
             'name.required' => 'category name should not be empty',
         ]);
 

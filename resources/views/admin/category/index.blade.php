@@ -38,12 +38,12 @@
                                     <tr>
                                         <th scope="row">{{ $categories->firstItem() + $loop->index }}</th>
                                         <td>{{ $category->name }}</td>
-                                        <td>{{ $category->user->name }}</td>
+                                        <td>{{ $category->user_name }}</td>
                                         <td>
                                             @if($category->created_at == NULL)
                                                 <span class="text-danger">No Data Found</span>
                                             @else
-                                                {{ $category->created_at->diffForHumans() }}
+                                                {{ $category->created_at }}
                                             @endif
                                         </td>
                                     </tr>
