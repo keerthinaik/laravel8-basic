@@ -26,7 +26,9 @@ Route::get('/about', [AboutController::class, 'index'])->middleware('check_age')
 
 // Category Controller
 Route::get('category/all', [CategoryController::class, 'allCategory'])->name('all.category');
-Route::post('category/all', [CategoryController::class, 'addCategory'])->name('add.category');
+Route::post('category/add', [CategoryController::class, 'addCategory'])->name('add.category');
+Route::get('category/edit/{id}', [CategoryController::class, 'editCategory']);
+Route::post('category/update/{id}', [CategoryController::class, 'updateCategory']);
 
 Route::middleware([
     'auth:sanctum',

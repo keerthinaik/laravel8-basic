@@ -14,13 +14,42 @@ class CategoryController extends Controller
 {
     function allCategory()
     {
-//        $categories = Category::latest()->paginate(4);
+        $categories = Category::latest()->paginate(4);
 
-        $categories = DB::table('categories')
-            ->join('users', 'categories.user_id', 'users.id')
-            ->select('categories.*', 'users.name as user_name')->latest()->paginate(4);
+        // code of query builder join table to join with user table to retrieve user's name
+//        $categories = DB::table('categories')
+//            ->join('users', 'categories.user_id', 'users.id')
+//            ->select('categories.*', 'users.name as user_name')->latest()->paginate(4);
 
         return view('admin.category.index', compact('categories'));
+    }
+
+    function editCategory($id) {
+//        $category = Category::find($id);
+
+        // Query builder syntax
+        $category = DB::table('categories')->where('id', $id)->first();
+        return view('admin.category.edit', compact('category'));
+    }
+
+    function updateCategory(Request $request, $id) {
+        $validateData = $request->validate([
+            'name' => 'required|unique:categories|max:20',
+
+        ], [
+            'name.required' => 'category name should not be empty',
+        ]);
+//        $update = Category::find($id)->update([
+//           'name' => $request->name,
+//            'user_id' => Auth::user()->id,
+//        ]);
+
+        // Query builder syntax for updating data
+        $data = array();
+        $data['name']=$request->name;
+        $data['user_id'] = Auth::user()->id;
+        DB::table('categories')->where('id', $id)->update($data);
+        return Redirect::route('all.category')->with('success', 'Category Updated Successfully');
     }
 
     function addCategory(Request $request)

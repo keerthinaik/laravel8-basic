@@ -31,6 +31,7 @@
                                     <th scope="col">Name</th>
                                     <th scope="col">Created by</th>
                                     <th scope="col">Created At</th>
+                                    <th scope="col"></th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -38,13 +39,17 @@
                                     <tr>
                                         <th scope="row">{{ $categories->firstItem() + $loop->index }}</th>
                                         <td>{{ $category->name }}</td>
-                                        <td>{{ $category->user_name }}</td>
+                                        <td>{{ $category->user->name }}</td>
                                         <td>
                                             @if($category->created_at == NULL)
                                                 <span class="text-danger">No Data Found</span>
                                             @else
                                                 {{ $category->created_at }}
                                             @endif
+                                        </td>
+                                        <td>
+                                            <a href="{{ url('category/edit/'.$category->id) }}" class="btn btn-info">Edit</a>
+                                            <a href="" class="btn btn-danger">Delete</a>
                                         </td>
                                     </tr>
                                 @endforeach
