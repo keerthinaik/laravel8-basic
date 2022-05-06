@@ -6,6 +6,8 @@ use App\Models\Brand;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Intervention\Image\Facades\Image;
+
 
 class BrandController extends Controller
 {
@@ -31,7 +33,10 @@ class BrandController extends Controller
         $image_name = $name_gen.'.'.$image_extension;
         $upload_directory = 'images/brand/';
         $image_path = $upload_directory.$image_name;
-        $image->move($upload_directory, $image_name);
+//        $image->move($upload_directory, $image_name);
+
+        // image resize and save functionality
+        Image::make($image->getRealPath())->resize(300,200)->save($image_path);
 
         Brand::insert([
            'name' => $request->name,
@@ -66,7 +71,10 @@ class BrandController extends Controller
             $image_name = $name_gen.'.'.$image_extension;
             $upload_directory = 'images/brand/';
             $image_path = $upload_directory.$image_name;
-            $image->move($upload_directory, $image_name);
+//            $image->move($upload_directory, $image_name);
+
+            // image resize and save functionality
+            Image::make($image->getRealPath())->resize(300,200)->save($image_path);
 
             // remove the old image
             if (file_exists($oldImage)) {

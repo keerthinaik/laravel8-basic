@@ -13,3 +13,6 @@ clone the project and run the following commands
 - npm install && npm run dev
 - php artisan jetstream:install livewire
 - php artisan migrate
+
+## Adding Image Intervention package for resizing images
+- follow this link https://image.intervention.io/v2/introduction/installation

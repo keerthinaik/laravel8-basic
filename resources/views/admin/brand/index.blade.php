@@ -39,7 +39,7 @@
                                     <tr>
                                         <th scope="row">{{ $brands->firstItem() + $loop->index }}</th>
                                         <td>{{ $brand->name }}</td>
-                                        <td><img width="40" src="{{ asset($brand->image) }}" alt="{{ $brand->name }}">
+                                        <td><img src="{{ asset($brand->image) }}" alt="{{ $brand->name }}">
                                         </td>
                                         <td>
                                             @if($brand->created_at == NULL)
