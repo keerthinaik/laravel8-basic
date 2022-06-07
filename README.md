@@ -10,8 +10,8 @@ clone the project and run the following commands
 
 ## Installing Authentication Commands
 - composer require laravel/jetstream
-- npm install && npm run dev
 - php artisan jetstream:install livewire
+- npm install && npm run dev
 - php artisan migrate
 
 ## Adding Image Intervention package for resizing images
